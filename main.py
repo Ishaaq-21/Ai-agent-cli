@@ -23,6 +23,13 @@ resp = client.models.generate_content(
     model="gemini-2.5-flash",
     contents=messages)
 
+if args.verbose:
+    if resp.usage_metadata is not None:
+        print("User prompt: ", args.user_prompt)
+        print("Prompt tokens:", resp.usage_metadata.prompt_token_count)
+        print("Response tokens: ", resp.usage_metadata.candidates_token_count)
+    else:
+        raise RuntimeError("Api call failed")
 
 if resp.usage_metadata is not None: 
     print("Prompt tokens:", resp.usage_metadata.prompt_token_count)
