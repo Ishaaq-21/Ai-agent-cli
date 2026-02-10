@@ -35,5 +35,9 @@ if args.verbose:
         print("Response tokens: ", resp.usage_metadata.candidates_token_count)
     else:
         raise RuntimeError("Api call failed")
+if resp.function_calls is not None:
+    for function_call in resp.function_calls:
+        print(f"Calling function: {function_call.name}({function_call.args})")
+        print("\n")
 
 print(resp.text)
